@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { FaShoppingCart, FaSearch, FaGlobe, FaCaretDown, FaBars, FaTimes, FaHome, FaEnvelope, FaList } from 'react-icons/fa'; // More icons
+import { FaShoppingCart, FaSearch, FaGlobe, FaCaretDown, FaBars, FaTimes } from 'react-icons/fa';
 import { useCategoryProducts } from '../Hooks/useCategoryProducts';
 import { api } from '../api';
 import { useQueryClient } from '@tanstack/react-query';
@@ -60,7 +60,7 @@ const Navbar: React.FC = () => {
         }, 200);
     };
 
-   
+  
 
     // Mobile menu
     const toggleMobileMenu = () => {
@@ -244,70 +244,62 @@ const Navbar: React.FC = () => {
 
                 {/* Mobile Menu */}
                 <div className="md:hidden flex items-center cursor-pointer" onClick={toggleMobileMenu}>
-                    <FaBars className='ml-4' />
+                    <FaBars />
                 </div>
-                {/* Mobile Menu Content */}
-                {isMobileMenuOpen && (
-                    <div className="md:hidden fixed top-0 left-0 w-full h-full z-50">
-                        <div
-                            className="absolute top-0 left-0 w-full h-full bg-black opacity-50"
-                            onClick={toggleMobileMenu}
-                        ></div>
-                        <div className="fixed top-0 right-0 w-72 h-full bg-white shadow-lg z-50 p-4 transform transition-transform duration-300 ease-in-out" style={{ transform: isMobileMenuOpen ? 'translateX(0)' : 'translateX(100%)' }}>
-                            <div className="flex items-center justify-between mb-4">
-                                <span className="text-lg font-semibold">Menu</span>
-                                <button
-                                    onClick={toggleMobileMenu}
-                                    className="text-gray-600 focus:outline-none"
-                                >
-                                    <FaTimes className="h-6 w-6" />
-                                </button>
-                            </div>
-                            <div className="space-y-4">
-                                <Link
-                                    to="/"
-                                    className="flex items-center py-2 text-lg font-medium hover:text-gray-500"
-                                    onClick={toggleMobileMenu}
-                                >
-                                    <FaHome className="mr-2" />
-                                    <span>{t('navbar.main')}</span>
-                                </Link>
-                                <Link
-                                    to="/contact"
-                                    className="flex items-center py-2 text-lg font-medium hover:text-gray-500"
-                                    onClick={toggleMobileMenu}
-                                >
-                                    <FaEnvelope className="mr-2" />
-                                    <span>{t('navbar.contact')}</span>
-                                </Link>
-                                <div>
-                                    <div className="flex items-center justify-between py-2 cursor-pointer" onClick={handleCategoryClick}>
-                                        <span className="text-lg font-medium flex items-center">
-                                            <FaList className="mr-2" />
-                                            {t('navbar.categories')}
-                                        </span>
-                                        <FaCaretDown className="ml-1 text-gray-400" />
+                  {/* Mobile Menu Content */}
+                                {isMobileMenuOpen && (
+                                    <div className="md:hidden fixed top-0 right-0 w-full h-full z-50">
+                                        <div
+                                            className="absolute top-0 left-0 w-full h-full bg-black opacity-50"
+                                            onClick={toggleMobileMenu}
+                                        ></div>
+                                        <div className="absolute top-0 right-0 w-72 h-full bg-white shadow-lg z-50 p-4 transform transition-transform duration-300 ease-in-out">
+                                            <button
+                                                onClick={toggleMobileMenu}
+                                                className="text-gray-600 focus:outline-none mb-4"
+                                            >
+                                                <FaTimes className="h-6 w-6" />
+                                            </button>
+                                            <div className="space-y-4">
+                                                <Link
+                                                    to="/"
+                                                    className="block py-2 text-lg font-medium hover:text-gray-500"
+                                                    onClick={toggleMobileMenu}
+                                                >
+                                                    {t('navbar.main')}
+                                                </Link>
+                                                <Link
+                                                    to="/contact"
+                                                    className="block py-2 text-lg font-medium hover:text-gray-500"
+                                                    onClick={toggleMobileMenu}
+                                                >
+                                                    {t('navbar.contact')}
+                                                </Link>
+                                                <div>
+                                                    <div className="flex items-center justify-between py-2 cursor-pointer" onClick={handleCategoryClick}>
+                                                        <span className="text-lg font-medium">{t('navbar.categories')}</span>
+                                                        <FaCaretDown className="ml-1 text-gray-400" />
+                                                    </div>
+                                                    {isCategoryDropdownVisible && (
+                                                        <ul className="bg-gray-100 rounded-md py-2 mt-2 space-y-2">
+                                                            {data?.map((category) => (
+                                                                <li key={category.name}>
+                                                                    <Link
+                                                                        to={`/category/${category.id}`}
+                                                                        className="block px-4 py-2 text-gray-700 hover:text-gray-500"
+                                                                        onClick={toggleMobileMenu}
+                                                                    >
+                                                                        {category.name}
+                                                                    </Link>
+                                                                </li>
+                                                            ))}
+                                                        </ul>
+                                                    )}
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
-                                    {isCategoryDropdownVisible && (
-                                        <ul className="bg-gray-100 rounded-md py-2 mt-2 space-y-2">
-                                            {data?.map((category) => (
-                                                <li key={category.name}>
-                                                    <Link
-                                                        to={`/category/${category.id}`}
-                                                        className="block px-4 py-2 text-gray-700 hover:text-gray-500"
-                                                        onClick={toggleMobileMenu}
-                                                    >
-                                                        {category.name}
-                                                    </Link>
-                                                </li>
-                                            ))}
-                                        </ul>
-                                    )}
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                )}
+                                )}
 
                 {/* Mobile Search Bar Popup */}
                 {isMobileSearchOpen && (

@@ -1,37 +1,44 @@
 import React from 'react';
-import { Routes, Route } from 'react-router-dom';
-import Navbar from "./components/Navbar";
-import Slider from "./components/Slider";
-import Products from './components/Product';
-import ProductDetails from './components/ProductDetails';
-import Footer from "./components/Footer";
-import CategoryProducts from './components/CategoryProducts'; // Import the correct component
-import Contact from './components/Contact';
-import Categories from "./components/Categories"
-import SearchPage from "./components/SearchPage"
+import { lazy, Suspense } from "react";
+import { Route, Routes } from 'react-router-dom';
 
+// Hata sınırı bileşeni (aşağıdaki gibi tanımlanabilir)
+// import ErrorBoundary from './components/ErrorBoundary';
+
+const Navbar = lazy(() => import("./components/Navbar"));
+const Slider = lazy(() => import("./components/Slider"));
+const Products = lazy(() => import('./components/Product'));
+const ProductDetails = lazy(() => import('./components/ProductDetails'));
+const Footer = lazy(() => import("./components/Footer"));
+const CategoryProducts = lazy(() => import('./components/CategoryProducts'));
+const Contact = lazy(() => import('./components/Contact'));
+const Categories = lazy(() => import("./components/Categories"));
+const SearchPage = lazy(() => import("./components/SearchPage"));
 
 const App: React.FC = () => {
   return (
     <div className="flex flex-col min-h-screen">
-      <Navbar />
-      <Routes>
-        <Route path="/" element={
-          <>
-            <Slider />
-            <Products />
-          </>
-        } />
-        <Route path="/contact" element={<Contact />} />
-        {/* Correct route for dynamic categories */}
-        <Route path="/Category" element={<Categories />} />
-        {/* Dynamic route */}
-        <Route path="/category/:category" element={<CategoryProducts />} />
-        <Route path="/products/:productId" element={<ProductDetails />} />
-        <Route path="/product/:productId" element={<ProductDetails />} /> 
-        <Route path="/search" element={<SearchPage />} /> {/* Search Page route */}
-      </Routes>
-      <Footer />
+      {/* Tüm uygulama için Suspense */}
+      <Suspense fallback={<div className="flex justify-center items-center h-screen">Loading...</div>}>
+        {/* Hata Sınırı (isteğe bağlı) */}
+        {/* <ErrorBoundary> */}
+          <Navbar />
+          <Routes>
+            <Route path="/" element={
+              <>
+                <Slider />
+                <Products />
+              </>
+            } />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="/category" element={<Categories />} />
+            <Route path="/category/:category" element={<CategoryProducts />} />
+            <Route path="/product/:productId" element={<ProductDetails />} />
+            <Route path="/search" element={<SearchPage />} />
+          </Routes>
+          <Footer />
+        {/* </ErrorBoundary> */}
+      </Suspense>
     </div>
   );
 };
