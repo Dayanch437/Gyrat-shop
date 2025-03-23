@@ -1,42 +1,42 @@
 {
-      "navbar": {
-        "main": "Главная",
-        "categories": "Категории",
-        "contact": "Контакты",
-        "pro_desk":"описание",
-        "no results":"ыовфыловыф ывфтвыф"
-  
-  
-      },
-      "titles": {
-        "latest": "Последние товары",
-        "categories": "Категории",
-        "contact_us": "Свяжитесь с нами",
-        "products_not_found": "Товар не найден",
-        "no_results": "Результатов не найдено для",
-        "search_query":"translate russian"
-      },
-      "contact":{
-        "c_information":"Контактная информация",
-        "address":"Адрес",
-        "phone":"Телефон",
-        "gmail":"Электронная почта",
-        "send_message_title":"Отправьте нам сообщение",
-        "name":"Имя",
-        "p_name":"Ваше имя",
-        "p_gmail":"Ваша электронная почта",
-        "message":"Сообщение",
-        "p_message":"Ваше сообщение",
-        "send":"Отправить сообщение",
-        "sending":"Отправка...",
-        "gmail_verify_title":"Подтверждение электронной почты",
-        "verification_code":"Код подтверждения",
-        "p-verify":"Ваш код подтверждения",
-        "verify_gmail":"Подтвердить электронную почту",
-        "verifying_gmail":"Подтверждение электронной почты",
-        "wrong_code": "Что-то пошло не так",
-         "err_message": "Неверный код",
-         "fill_fields": "Пожалуйста, заполните все поля",
-         "search_results": "Результаты поиска для"
-      }
+    "navbar": {
+      "main": "Главная",
+      "categories": "Категории",
+      "contact": "Контакты",
+      "pro_desk":"описание",
+      "no results":"ыовфыловыф ывфтвыф"
+
+
+    },
+    "titles": {
+      "latest": "Последние товары",
+      "categories": "Категории",
+      "contact_us": "Свяжитесь с нами",
+      "products_not_found": "Товар не найден",
+      "no_results": "Результатов не найдено для",
+      "search_query":"translate russian"
+    },
+    "contact":{
+      "c_information":"Контактная информация",
+      "address":"Адрес",
+      "phone":"Телефон",
+      "gmail":"Электронная почта",
+      "send_message_title":"Отправьте нам сообщение",
+      "name":"Имя",
+      "p_name":"Ваше имя",
+      "p_gmail":"Ваша электронная почта",
+      "message":"Сообщение",
+      "p_message":"Ваше сообщение",
+      "send":"Отправить сообщение",
+      "sending":"Отправка...",
+      "gmail_verify_title":"Подтверждение электронной почты",
+      "verification_code":"Код подтверждения",
+      "p-verify":"Ваш код подтверждения",
+      "verify_gmail":"Подтвердить электронную почту",
+      "verifying_gmail":"Подтверждение электронной почты",
+      "wrong_code": "Что-то пошло не так",
+       "err_message": "Неверный код",
+       "fill_fields": "Пожалуйста, заполните все поля",
+       "search_results": "Результаты поиска для"
     }
+  }
