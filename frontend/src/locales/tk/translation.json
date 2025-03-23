@@ -1,43 +1,43 @@
 {
-    "navbar": {
-      "main": "Baş sahypa",
-      "categories": "Kategoriýalar",
-      "contact": "Habarlaşmak",
-      "pro_desk":"beýany",
-      "no results":"şunuň üçin önum tapylmady:"
-
-
-    },
-    "titles": {
-      "latest": "Soňky Harytlar",
-      "categories": "Kategoriýalar",
-      "contact_us": "Biz bilen habarlaşyň",
-      "products_not_found": "Önüm tapylmady",
-      "search_results": "Gözleg netijeleri üçin",
-      "no_results": "Netije tapylmady",
-      "search_query":"Gözleg girizin"
-    },
-    "contact":{
-      "c_information":"Habarlaşmak maglumatlary",
-      "address":"Salgysy",
-      "phone":"Telefon",
-      "gmail":"Elektron poçta",
-      "send_message_title":"Bize hat ýazyň",
-      "name":"Ady",
-      "p_name":"Siziň adyňyz",
-      "p_gmail":"Siziň elektron poçtaňyz",
-      "message":"Teswir",
-       "p_message":"Siziň hatyňyz",
-      "send":"Ugrat",
-      "sending":"Ugradylýar...",
-      "gmail_verify_title":"Elektron poçta tassyklamak",
-      "verification_code":"Tassyklama kody",
-      "p-verify":"Siziň tassyklama kodyňyz",
-      "verify_gmail":"Elektron poçtany tassyklamak",
-      "verifying_gmail":"Elektron poçta tassyklanýar",
-      "wrong_code": "Bir zat nädogry gitdi",
-      "err_message": "Nädogry kod",
-       "fill_fields": " Ahli yerleri dolduryň",
-       "search_results": "Gözleg netijeleri üçin"
+      "navbar": {
+        "main": "Baş sahypa",
+        "categories": "Kategoriýalar",
+        "contact": "Habarlaşmak",
+        "pro_desk":"beýany",
+        "no results":"şunuň üçin önum tapylmady:"
+  
+  
+      },
+      "titles": {
+        "latest": "Soňky Harytlar",
+        "categories": "Kategoriýalar",
+        "contact_us": "Biz bilen habarlaşyň",
+        "products_not_found": "Önüm tapylmady",
+        "search_results": "Gözleg netijeleri üçin",
+        "no_results": "Netije tapylmady",
+        "search_query":"Gözleg girizin"
+      },
+      "contact":{
+        "c_information":"Habarlaşmak maglumatlary",
+        "address":"Salgysy",
+        "phone":"Telefon",
+        "gmail":"Elektron poçta",
+        "send_message_title":"Bize hat ýazyň",
+        "name":"Ady",
+        "p_name":"Siziň adyňyz",
+        "p_gmail":"Siziň elektron poçtaňyz",
+        "message":"Teswir",
+         "p_message":"Siziň hatyňyz",
+        "send":"Ugrat",
+        "sending":"Ugradylýar...",
+        "gmail_verify_title":"Elektron poçta tassyklamak",
+        "verification_code":"Tassyklama kody",
+        "p-verify":"Siziň tassyklama kodyňyz",
+        "verify_gmail":"Elektron poçtany tassyklamak",
+        "verifying_gmail":"Elektron poçta tassyklanýar",
+        "wrong_code": "Bir zat nädogry gitdi",
+        "err_message": "Nädogry kod",
+         "fill_fields": " Ahli yerleri dolduryň",
+         "search_results": "Gözleg netijeleri üçin"
+      }
     }
-  }

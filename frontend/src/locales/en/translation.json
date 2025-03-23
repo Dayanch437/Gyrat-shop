@@ -1,42 +1,42 @@
 {
-    "navbar": {
-      "main": "Main",
-      "categories": "Categories",
-      "contact": "Contact",
-      "pro_desk":"Description",
-      "no results":"No results have found for"
-    },
-    "titles": {
-      "latest": "Latest Products",
-      "categories": "Categories",
-      "contact_us": "Contact us",
-      "products_not_found":"Product not found",
-      "search_results":"Search results for",
-      "no_results":"No results found for",
-      "search_query":"Please enter the search query"
-
+      "navbar": {
+        "main": "Main",
+        "categories": "Categories",
+        "contact": "Contact",
+        "pro_desk":"Description",
+        "no results":"No results have found for"
       },
-      "contact":{
-        "c_information":"Contact information",
-        "address":"Adress",
-        "phone":"Phone",
-        "gmail":"Gmail",
-        "send_message_title":"Send us a message",
-        "name":"Name",
-        "p_name":"Your Name",
-        "p_gmail":"Your Gmail",
-        "message":"Message",
-        "p_message":"Your Message",
-        "send":"Send Message",
-        "sending":"Sending...",
-        "gmail_verify_title":"Gmail Verification",
-        "verification_code":"Verification code",
-        "p-verify":"Your verification code",
-        "verify_gmail":"Verify gmail",
-        "verifying_gmail":"Veryfying gmail",
-        "wrong_code":"Something went wrong",
-        "err_message":"Wrong code",
-        "fill_fields":"Please fill the all fields"
-       
-  }
-  }
+      "titles": {
+        "latest": "Latest Products",
+        "categories": "Categories",
+        "contact_us": "Contact us",
+        "products_not_found":"Product not found",
+        "search_results":"Search results for",
+        "no_results":"No results found for",
+        "search_query":"Please enter the search query"
+  
+        },
+        "contact":{
+          "c_information":"Contact information",
+          "address":"Adress",
+          "phone":"Phone",
+          "gmail":"Gmail",
+          "send_message_title":"Send us a message",
+          "name":"Name",
+          "p_name":"Your Name",
+          "p_gmail":"Your Gmail",
+          "message":"Message",
+          "p_message":"Your Message",
+          "send":"Send Message",
+          "sending":"Sending...",
+          "gmail_verify_title":"Gmail Verification",
+          "verification_code":"Verification code",
+          "p-verify":"Your verification code",
+          "verify_gmail":"Verify gmail",
+          "verifying_gmail":"Veryfying gmail",
+          "wrong_code":"Something went wrong",
+          "err_message":"Wrong code",
+          "fill_fields":"Please fill the all fields"
+         
+    }
+    }
