@@ -108,13 +108,13 @@ const Contact: React.FC = () => {
                         <h2 className="text-xl font-semibold mb-4">{t("contact.c_information")}</h2>
                         <ul className="space-y-2">
                             <li>
-                                <span className="font-medium">{t("contact.address")}</span> 123 Main Street, Anytown, CA 12345
+                                <span className="font-medium">{t("contact.address")}</span> Gyrat Market
                             </li>
                             <li>
-                                <span className="font-medium">{t("contact.phone")}</span> (555) 123-4567
+                                <span className="font-medium">{t("contact.phone")}</span> +99361983821
                             </li>
                             <li>
-                                <span className="font-medium">{t("contact.gmail")}</span> info@ecommerce.com
+                                <span className="font-medium">{t("contact.gmail")}</span> gyratmarket@gmail.com
                             </li>
                         </ul>
                     </div>
