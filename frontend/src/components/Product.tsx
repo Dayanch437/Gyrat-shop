@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next";
 import { useProduct } from '../Hooks/useProducts';
 import { motion } from "framer-motion";
 
+
 const Products: React.FC = () => {
   const { t } = useTranslation();
   const { data: products } = useProduct();
@@ -27,7 +28,7 @@ const Products: React.FC = () => {
             transition={{ type: "spring", stiffness: 200 }}
           >
             <Link 
-              to={`/products/${product.id}`} 
+              to={`/product/${product.id}`}
               className="block bg-white rounded-lg shadow-md hover:shadow-lg overflow-hidden transition duration-300"
             >
               <img 
@@ -39,7 +40,7 @@ const Products: React.FC = () => {
                 <h2 className="font-bold text-lg text-gray-900">{product.name}</h2>
                 <p className="text-gray-600 text-sm mt-1">{product.description}</p>
                 <div className="flex justify-between items-center mt-3">
-                  <span className="text-lg font-semibold text-blue-600">${product.price}</span>
+                  <span className="text-lg font-semibold text-blue-600">TMT{product.price}</span>
                 
                 </div>
               </div>
