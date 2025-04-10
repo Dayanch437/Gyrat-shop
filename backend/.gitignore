@@ -1,2 +1,5 @@
 media/
-venv/
+venv/   
+static/
+db.sqlite3/
+
