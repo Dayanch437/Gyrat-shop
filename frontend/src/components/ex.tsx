@@ -10,7 +10,6 @@ import i18n from '../i18n';
 interface Product {
     id: number;
     name: string;
-    // Diğer ürün özellikleri...
 }
 
 const Navbar: React.FC = () => {
@@ -19,7 +18,6 @@ const Navbar: React.FC = () => {
     const queryClient = useQueryClient();
     const navigate = useNavigate();
 
-    // State management
     const [isCategoryDropdownVisible, setIsCategoryDropdownVisible] = useState(false);
     const [isLanguageDropdownVisible, setIsLanguageDropdownVisible] = useState(false);
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -30,9 +28,8 @@ const Navbar: React.FC = () => {
     const categoryTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
     const languageTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
     const searchTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-    const searchInputRef = useRef<HTMLInputElement>(null); // Ref for the search input
+    const searchInputRef = useRef<HTMLInputElement>(null);
 
-    // Category dropdown
     const handleCategoryMouseEnter = () => {
         if (categoryTimeoutRef.current) clearTimeout(categoryTimeoutRef.current);
         setIsCategoryDropdownVisible(true);
@@ -48,7 +45,6 @@ const Navbar: React.FC = () => {
         setIsCategoryDropdownVisible(!isCategoryDropdownVisible);
     };
 
-    // Language dropdown
     const handleLanguageMouseEnter = () => {
         if (languageTimeoutRef.current) clearTimeout(languageTimeoutRef.current);
         setIsLanguageDropdownVisible(true);
@@ -60,69 +56,51 @@ const Navbar: React.FC = () => {
         }, 200);
     };
 
-  
-
-    // Mobile menu
     const toggleMobileMenu = () => {
         setIsMobileMenuOpen(!isMobileMenuOpen);
     };
 
-    // Arama sonuçlarını getiren fonksiyon
     const fetchSearchResults = async (query: string) => {
         try {
-            // API endpoint'i buraya uygun şekilde ayarlayın
-            const response = await api.get<Product[]>(`/products?search=${query}`); // Örnek endpoint
-            return response.data; // Return the data; don't set state here directly
+            const response = await api.get<Product[]>(`/products?search=${query}`);
+            return response.data;
         } catch (error) {
-            console.error("Arama sonuçları alınırken hata oluştu:", error);
+            console.error("Search error:", error);
             return [];
         }
     };
 
-    // Mobile search - updates the state
     const handleMobileSearch = async (query: string) => {
-        console.log("handleMobileSearch - query:", query);
         const results = await fetchSearchResults(query);
         setSearchResults(results);
     };
 
-    // Desktop search - navigates to the search page
     const handleDesktopSearch = (query: string) => {
-        console.log("handleDesktopSearch - query:", query);
-        navigate(`/search?q=${query}`); // Navigate to the search page
+        navigate(`/search?q=${query}`);
     };
 
     const handleSearchInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const query = e.target.value;
         setSearchQuery(query);
-        console.log("handleSearchInputChange - query:", query);
-
         if (searchTimeoutRef.current) clearTimeout(searchTimeoutRef.current);
-
         searchTimeoutRef.current = setTimeout(() => {
-            handleDesktopSearch(query); // Desktop search!
+            handleDesktopSearch(query);
         }, 300);
     };
 
-    // Handle Mobile search input change
     const handleMobileSearchInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const query = e.target.value;
         setSearchQuery(query);
-        console.log("handleMobileSearchInputChange - query:", query);
-
         if (searchTimeoutRef.current) clearTimeout(searchTimeoutRef.current);
-
         searchTimeoutRef.current = setTimeout(() => {
-            handleMobileSearch(query); // Desktop search!
+            handleMobileSearch(query);
         }, 300);
     };
 
-    // Language change
     const handleLanguageChange = (selectedOption: string) => {
-        const language = selectedOption;
-        localStorage.setItem('language', language);
-        api.defaults.headers.common['Accept-Language'] = language;
-        i18n.changeLanguage(language).then(() => {
+        localStorage.setItem('language', selectedOption);
+        api.defaults.headers.common['Accept-Language'] = selectedOption;
+        i18n.changeLanguage(selectedOption).then(() => {
             queryClient.invalidateQueries();
             setIsLanguageDropdownVisible(false);
         });
@@ -132,52 +110,95 @@ const Navbar: React.FC = () => {
         const language = localStorage.getItem('language') || 'tk';
         i18n.changeLanguage(language);
         api.defaults.headers.common['Accept-Language'] = language;
-
-        // Focus the search input on mount (desktop)
         if (searchInputRef.current) {
             searchInputRef.current.focus();
         }
     }, []);
 
-    // Mobile Search Bar Functionality
     const toggleMobileSearch = () => {
         setIsMobileSearchOpen(!isMobileSearchOpen);
-        setSearchResults([]); // Arama çubuğu açıldığında sonuçları temizle
-        setSearchQuery(''); // Arama çubuğu açıldığında sorguyu temizle
+        setSearchResults([]);
+        setSearchQuery('');
     };
 
     return (
-        <nav className="bg-white mx-auto container">
-            <div className="bg-white p-4 text-black flex items-center justify-between transition-all duration-300 ease-in-out">
-                {/* Logo Section */}
-                <div className="flex items-center">
-                    <FaShoppingCart className="text-2xl mr-2" />
+        <nav className="bg-white shadow-md sticky top-0 z-50">
+            <div className="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
+                <div className="flex items-center space-x-2">
+                    <FaShoppingCart className="text-xl text-indigo-600" />
                     <span className="font-bold text-xl">Gyrat</span>
                 </div>
+                <div className="hidden md:flex space-x-6 items-center">
+                    <Link to="/" className="hover:text-indigo-600 font-medium">{t('navbar.main')}</Link>
+                    <div onMouseEnter={handleCategoryMouseEnter} onMouseLeave={handleCategoryMouseLeave}>
+                        <div className="relative">
+                            <button onClick={handleCategoryClick} className="flex items-center font-medium hover:text-indigo-600">
+                                {t('navbar.categories')} <FaCaretDown className="ml-1" />
+                            </button>
+                            {isCategoryDropdownVisible && (
+                                <ul className="absolute bg-white border mt-2 rounded shadow-md w-48 z-10">
+                                    {data?.map((category) => (
+                                        <li key={category.name}>
+                                            <Link to={`/category/${category.id}`} className="block px-4 py-2 hover:bg-gray-100">
+                                                {category.name}
+                                            </Link>
+                                        </li>
+                                    ))}
+                                </ul>
+                            )}
+                        </div>
+                    </div>
+                    <Link to="/contact" className="hover:text-indigo-600 font-medium">{t('navbar.contact')}</Link>
+                </div>
+                <div className="flex items-center space-x-3">
+                    <div className="hidden md:block relative">
+                        <input
+                            ref={searchInputRef}
+                            type="text"
+                            value={searchQuery}
+                            onChange={handleSearchInputChange}
+                            placeholder="Search..."
+                            className="px-3 py-1 pl-9 w-64 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                        />
+                        <FaSearch className="absolute left-2 top-1/2 transform -translate-y-1/2 text-gray-400" />
+                    </div>
+                    <FaSearch className="md:hidden text-xl cursor-pointer" onClick={toggleMobileSearch} />
+                    <div onMouseEnter={handleLanguageMouseEnter} onMouseLeave={handleLanguageMouseLeave} className="relative cursor-pointer">
+                        <FaGlobe className="text-xl" />
+                        {isLanguageDropdownVisible && (
+                            <ul className="absolute right-0 mt-2 w-20 bg-white border rounded shadow z-10">
+                                {['en', 'ru', 'tk'].map((lang) => (
+                                    <li key={lang}>
+                                        <button onClick={() => handleLanguageChange(lang)} className="block w-full text-left px-3 py-1 hover:bg-gray-100">
+                                            {lang}
+                                        </button>
+                                    </li>
+                                ))}
+                            </ul>
+                        )}
+                    </div>
+                    <FaBars className="md:hidden text-2xl cursor-pointer" onClick={toggleMobileMenu} />
+                </div>
+            </div>
 
-                {/* Desktop Menu */}
-                <div className="hidden md:flex space-x-6">
-                    <Link to="/" className="hover:text-gray-500 transition-all duration-300 ease-in-out">
-                        {t('navbar.main')}
-                    </Link>
-
-                    <div
-                        className="relative group hover:text-gray-500 transition-all duration-300 ease-in-out"
-                        onMouseEnter={handleCategoryMouseEnter}
-                        onMouseLeave={handleCategoryMouseLeave}
-                    >
-                        <div className="flex items-center cursor-pointer" onClick={handleCategoryClick}>
-                            <Link to="/category" className="flex items-center">
-                                {t('navbar.categories')} <FaCaretDown className="ml-1 text-gray-400" />
-                            </Link>
+            {isMobileMenuOpen && (
+                <div className="md:hidden fixed inset-0 bg-white z-40 flex flex-col p-4 space-y-4">
+                    <FaTimes className="self-end text-xl cursor-pointer" onClick={toggleMobileMenu} />
+                    <Link to="/" onClick={toggleMobileMenu} className="text-lg font-medium hover:text-indigo-600">{t('navbar.main')}</Link>
+                    <Link to="/contact" onClick={toggleMobileMenu} className="text-lg font-medium hover:text-indigo-600">{t('navbar.contact')}</Link>
+                    <div>
+                        <div className="flex justify-between items-center py-2 cursor-pointer" onClick={handleCategoryClick}>
+                            <span className="text-lg font-medium">{t('navbar.categories')}</span>
+                            <FaCaretDown className="ml-1 text-gray-400" />
                         </div>
                         {isCategoryDropdownVisible && (
-                            <ul className="absolute bg-white rounded-md shadow-lg py-2 mt-2 w-48 z-10 transition-all duration-300 ease-in-out">
+                            <ul className="bg-gray-100 rounded-md py-2 mt-2">
                                 {data?.map((category) => (
                                     <li key={category.name}>
                                         <Link
                                             to={`/category/${category.id}`}
-                                            className="block px-4 py-1 text-gray-700 hover:text-gray-500"
+                                            className="block px-4 py-2 hover:bg-gray-200"
+                                            onClick={toggleMobileMenu}
                                         >
                                             {category.name}
                                         </Link>
@@ -186,166 +207,37 @@ const Navbar: React.FC = () => {
                             </ul>
                         )}
                     </div>
-
-                    <Link to="/contact" className="hover:text-gray-500 transition-all duration-300 ease-in-out">
-                        {t('navbar.contact')}
-                    </Link>
                 </div>
+            )}
 
-                {/* Right Section */}
-                <div className="flex items-center ml-auto md:ml-0 space-x-4">
-
-                    {/* Desktop Search Bar */}
-                    <div className="relative flex items-center hidden md:block">
-                        <form onSubmit={(e) => {
-                            e.preventDefault();  // Prevent default form submission
-                            handleDesktopSearch(searchQuery); // Manually trigger desktop search
-                        }}>
-                            <input
-                                type="text"
-                                placeholder="Search..."
-                                className="bg-gray-100 text-black rounded-md px-3 py-1 pl-8 focus:outline-none transition-all duration-300 ease-in-out w-64 sm:w-80"
-                                value={searchQuery}
-                                onChange={handleSearchInputChange} // Use the *same* change handler
-                                ref={searchInputRef} // Add the ref here
-                            />
-                            <FaSearch className="absolute left-2 top-1/2 transform -translate-y-1/2 text-gray-400" />
-                        </form>
-                    </div>
-
-                    {/* Mobile Search Icon */}
-                    <div className="md:hidden cursor-pointer text-xl hover:text-gray-500" onClick={toggleMobileSearch}>
-                        <FaSearch />
-                    </div>
-
-                    {/* Mobile Language Dropdown */}
-                    <div
-                        className="relative cursor-pointer text-xl hover:text-gray-500"
-                        onMouseEnter={handleLanguageMouseEnter}
-                        onMouseLeave={handleLanguageMouseLeave}
-                    >
-                        <FaGlobe />
-                        {isLanguageDropdownVisible && (
-                            <ul className="absolute bg-white rounded-md shadow-lg py-2 mt-2 w-16 z-10 right-0 px-1 transition-all duration-300 ease-in-out">
-                                {['en', 'ru', 'tk'].map((language) => (
-                                    <li key={language}>
-                                        <button
-                                            className="block px-4 py-1 text-gray-700 hover:text-gray-500 w-full text-left"
-                                            onClick={() => handleLanguageChange(language)}
-                                        >
-                                            {language}
-                                        </button>
+            {isMobileSearchOpen && (
+                <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex justify-center items-center">
+                    <div className="bg-white p-4 rounded-md w-11/12 max-w-md">
+                        <div className="flex justify-between mb-2">
+                            <span className="text-lg font-semibold">{t('navbar.search')}</span>
+                            <FaTimes onClick={toggleMobileSearch} className="cursor-pointer" />
+                        </div>
+                        <input
+                            type="text"
+                            placeholder={t('navbar.searchPlaceholder')}
+                            className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                            value={searchQuery}
+                            onChange={handleMobileSearchInputChange}
+                        />
+                        {searchResults.length > 0 && (
+                            <ul className="mt-2">
+                                {searchResults.map((result) => (
+                                    <li key={result.id} className="py-2 border-b">
+                                        <Link to={`/product/${result.id}`} onClick={toggleMobileSearch} className="hover:text-indigo-600">
+                                            {result.name}
+                                        </Link>
                                     </li>
                                 ))}
                             </ul>
                         )}
                     </div>
                 </div>
-
-                {/* Mobile Menu */}
-                <div className="md:hidden flex items-center cursor-pointer" onClick={toggleMobileMenu}>
-                    <FaBars />
-                </div>
-                  {/* Mobile Menu Content */}
-                                {isMobileMenuOpen && (
-                                    <div className="md:hidden fixed top-0 right-0 w-full h-full z-50">
-                                        <div
-                                            className="absolute top-0 left-0 w-full h-full bg-black opacity-50"
-                                            onClick={toggleMobileMenu}
-                                        ></div>
-                                        <div className="absolute top-0 right-0 w-72 h-full bg-white shadow-lg z-50 p-4 transform transition-transform duration-300 ease-in-out">
-                                            <button
-                                                onClick={toggleMobileMenu}
-                                                className="text-gray-600 focus:outline-none mb-4"
-                                            >
-                                                <FaTimes className="h-6 w-6" />
-                                            </button>
-                                            <div className="space-y-4">
-                                                <Link
-                                                    to="/"
-                                                    className="block py-2 text-lg font-medium hover:text-gray-500"
-                                                    onClick={toggleMobileMenu}
-                                                >
-                                                    {t('navbar.main')}
-                                                </Link>
-                                                <Link
-                                                    to="/contact"
-                                                    className="block py-2 text-lg font-medium hover:text-gray-500"
-                                                    onClick={toggleMobileMenu}
-                                                >
-                                                    {t('navbar.contact')}
-                                                </Link>
-                                                <div>
-                                                    <div className="flex items-center justify-between py-2 cursor-pointer" onClick={handleCategoryClick}>
-                                                        <span className="text-lg font-medium">{t('navbar.categories')}</span>
-                                                        <FaCaretDown className="ml-1 text-gray-400" />
-                                                    </div>
-                                                    {isCategoryDropdownVisible && (
-                                                        <ul className="bg-gray-100 rounded-md py-2 mt-2 space-y-2">
-                                                            {data?.map((category) => (
-                                                                <li key={category.name}>
-                                                                    <Link
-                                                                        to={`/category/${category.id}`}
-                                                                        className="block px-4 py-2 text-gray-700 hover:text-gray-500"
-                                                                        onClick={toggleMobileMenu}
-                                                                    >
-                                                                        {category.name}
-                                                                    </Link>
-                                                                </li>
-                                                            ))}
-                                                        </ul>
-                                                    )}
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                )}
-
-                {/* Mobile Search Bar Popup */}
-                {isMobileSearchOpen && (
-                    <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 z-50 flex items-center justify-center">
-                        <div className="bg-white rounded-md p-4 w-11/12 max-w-md">
-                            <div className="flex justify-between items-center mb-4">
-                                <span className="text-lg font-semibold">{t('navbar.search')}</span>
-                                <button onClick={toggleMobileSearch} className="text-gray-600 hover:text-gray-800 focus:outline-none">
-                                    <FaTimes className="h-6 w-6" />
-                                </button>
-                            </div>
-                            <form onSubmit={(e) => {
-                                e.preventDefault();
-
-                            }}>
-                                <div className="relative">
-                                    <input
-                                        type="text"
-                                        placeholder={t('navbar.searchPlaceholder')}
-                                        className="w-full bg-gray-100 text-black rounded-md px-3 py-2 pl-10 focus:outline-none transition-all duration-300 ease-in-out"
-                                        value={searchQuery}
-                                        onChange={handleMobileSearchInputChange}  // Mobile Change Handler
-                                    />
-                                    <FaSearch className="absolute left-2 top-1/2 transform -translate-y-1/2 text-gray-400" />
-                                </div>
-                            </form>
-                            {/* Arama Sonuçları */}
-                            {searchResults.length > 0 && (
-                                <ul className="mt-2">
-                                    {searchResults.map((result) => (
-                                        <li key={result.id} className="py-2 border-b border-gray-200">
-                                            <Link
-                                                to={`/product/${result.id}`}
-                                                onClick={toggleMobileSearch}
-                                                className="block hover:text-blue-500"
-                                            >
-                                                {result.name}
-                                            </Link>
-                                        </li>
-                                    ))}
-                                </ul>
-                            )}
-                        </div>
-                    </div>
-                )}
-            </div>
+            )}
         </nav>
     );
 };

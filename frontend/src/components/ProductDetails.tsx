@@ -20,7 +20,11 @@ const ProductDetails = () => {
                 <div className="bg-white rounded-xl shadow-xl overflow-hidden flex flex-col md:flex-row">
                     {/* Product Image Section */}
                     <div className="w-full md:w-1/2">
-                        <img src={image} alt={name} className="w-full h-[500px] object-cover rounded-lg" />
+                        <img 
+                            src={image} 
+                            alt={name} 
+                            className="w-full h-full object-cover rounded-lg transition-transform duration-300 transform hover:scale-105" 
+                        />
                         {images.length > 0 && (
                             <div className="grid grid-cols-3 gap-3 mt-6 overflow-x-auto p-2">
                                 {images.map((image, index) => (
@@ -28,7 +32,7 @@ const ProductDetails = () => {
                                         key={index}
                                         src={image.image}
                                         alt={`${name} - Image ${index + 1}`}
-                                        className="w-full h-20 object-cover rounded-lg cursor-pointer transition transform hover:scale-105 hover:border-2 hover:border-blue-500"
+                                        className="w-full h-full object-cover rounded-lg cursor-pointer transition-all duration-300 transform hover:scale-105 hover:border-2 hover:border-blue-500"
                                     />
                                 ))}
                             </div>

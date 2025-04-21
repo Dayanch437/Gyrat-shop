@@ -19,7 +19,6 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children, hasError, isPe
         }
     }, [isOpen, inputRef]);
 
-
     if (!isOpen) return null;
 
     return (
@@ -30,13 +29,13 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children, hasError, isPe
         >
             <div
                 ref={modalRef}
-                className={`bg-white p-10 rounded-xl shadow-xl transform transition-transform duration-300 ease-out ${isOpen ? 'scale-100' : 'scale-95'}`}
+                className={`bg-white p-10 rounded-xl shadow-xl transform transition-transform duration-500 ease-out ${isOpen ? 'scale-100' : 'scale-95'}`}
                 aria-labelledby="modal-title"
             >
                 {(hasError || isPending) && (
                     <button
                         onClick={onClose}
-                        className="absolute top-2 right-2 text-gray-600 hover:text-gray-800 focus:outline-none p-1 rounded-full bg-gray-100"
+                        className="absolute top-2 right-2 text-gray-600 hover:text-gray-800 focus:outline-none p-1 rounded-full bg-gray-100 transition-all duration-300 ease-in-out transform hover:scale-110"
                     >
                         <AiOutlineClose className="h-4 w-4" />
                     </button>

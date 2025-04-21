@@ -4,7 +4,6 @@ import { useTranslation } from "react-i18next";
 import { useProduct } from '../Hooks/useProducts';
 import { motion } from "framer-motion";
 
-
 const Products: React.FC = () => {
   const { t } = useTranslation();
   const { data: products } = useProduct();
@@ -12,7 +11,7 @@ const Products: React.FC = () => {
   return (
     <div className="container mx-auto mt-10 mb-10 p-5 min-h-screen">
       <motion.h1 
-        className="text-xllg:text-3xl font-semibold pb-5 text-center text-gray-800"
+        className="text-3xl font-semibold pb-5 text-center text-gray-800"
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
@@ -26,22 +25,22 @@ const Products: React.FC = () => {
             key={product.id} 
             whileHover={{ scale: 1.05 }} 
             transition={{ type: "spring", stiffness: 200 }}
+            className="flex justify-center"
           >
             <Link 
               to={`/product/${product.id}`}
-              className="block bg-white rounded-lg shadow-md hover:shadow-lg overflow-hidden transition duration-300"
+              className="block bg-white rounded-lg shadow-md hover:shadow-lg overflow-hidden transition duration-300 w-full"
             >
               <img 
                 src={product.image} 
                 alt={product.name} 
-                className="w-full h-52 object-cover"
+                className="w-full h-auto object-cover"
               />
               <div className="p-4">
-                <h2 className="font-bold text-lg text-gray-900">{product.name}</h2>
-                <p className="text-gray-600 text-sm mt-1">{product.description}</p>
+                <h2 className="font-bold text-lg text-gray-900 truncate">{product.name}</h2>
+                <p className="text-gray-600 text-sm mt-1 line-clamp-3">{product.description}</p>
                 <div className="flex justify-between items-center mt-3">
                   <span className="text-lg font-semibold text-blue-600">TMT{product.price}</span>
-                
                 </div>
               </div>
             </Link>

@@ -6,7 +6,7 @@ def validate_video_extension(value):
         raise ValidationError('Unsupported file extension. Please upload a video in MP4, AVI, or MOV format.')
 
 def validate_image(value):
-    if not value.name.lower().endswith(('.jpg', '.jpeg', '.png',"svg")):
+    if not value.name.lower().endswith(('.jpg', '.jpeg', '.png',"svg","webp")):
         raise ValidationError('Unsupported file extension. Please upload an image file.')
 
 
