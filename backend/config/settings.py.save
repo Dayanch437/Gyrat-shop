@@ -15,7 +15,6 @@ from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
 
 
 # Quick-start development settings - unsuitable for production
@@ -26,15 +25,13 @@ SECRET_KEY = "django-insecure-774hw!%x_y*oy!%_a%_6gil^7t=$t6-qcesf8ty#(lag*=*$ii
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-
 ALLOWED_HOSTS = [
-    'gyrat.shop',
-    'www.gyrat.shop',  # if needed
+    'talumo.sbs',
+    'www.talumo.sbs',  # if needed
 ]
+
 CORS_ALLOW_ALL_ORIGINS = True
 INTERNAL_IPS = [
-    "127.0.0.1",
-    "192.168.0.116",
     "192.168.0.104"
 ]
 
