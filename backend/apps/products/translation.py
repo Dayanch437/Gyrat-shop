@@ -4,7 +4,7 @@ from .models import Product,Category,Banner
 
 @register(Product)
 class ProductTranslationOptions(TranslationOptions):
-    fields = ('type','name','description')
+    fields = ('name','description')
 
 @register(Category)
 class CategoryTranslationOptions(TranslationOptions):

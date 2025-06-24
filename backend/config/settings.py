@@ -29,8 +29,10 @@ DEBUG = True
 
 ALLOWED_HOSTS = [
     'gyrat.shop',
-    'www.gyrat.shop',  # if needed
+    'www.gyrat.shop',
+    "*"
 ]
+
 CORS_ALLOW_ALL_ORIGINS = True
 INTERNAL_IPS = [
     "127.0.0.1",
@@ -44,6 +46,7 @@ INTERNAL_IPS = [
 INSTALLED_APPS = [
     'corsheaders',
     'modeltranslation',
+    "unfold",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -59,6 +62,12 @@ INSTALLED_APPS = [
     "apps.contact",
     'import_export',
 ]
+
+UNFOLD = {
+    "SITE_TITLE": "Gyrat admin",
+    "SHOW_HISTORY": True,
+    "DARK_MODE": True,
+}
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
